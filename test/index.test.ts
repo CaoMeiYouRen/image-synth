@@ -1,12 +1,19 @@
-import { existsSync } from 'fs'
+import fs from 'fs/promises'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeAll } from 'vitest'
 import sharp from 'sharp'
 import { synthesizeImage } from '../src/index'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 describe('synthesizeImage', () => {
+
+    beforeAll(async () => {
+        // 初始化测试环境
+        // 创建测试目录
+        await fs.mkdir(path.resolve(__dirname, '../example/output'), { recursive: true })
+    })
+
     it('should return a Buffer', async () => {
         const result = await synthesizeImage({
             backgroundImagePath: path.resolve(__dirname, '../example/images/background.png'),
@@ -28,6 +35,7 @@ describe('synthesizeImage', () => {
         const metadata = await image.metadata()
         expect(metadata.format).toBe('png')
         // 验证文件是否存在
-        // expect(existsSync(outputPath)).toBe(true)
+        const fileExists = await fs.access(outputPath).then(() => true).catch(() => false)
+        expect(fileExists).toBe(true)
     })
 })
