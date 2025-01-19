@@ -8,8 +8,11 @@ interface ImageSynthesisOptions {
     outputPath?: string
     fontSize?: number
     fontColor?: string
+    fontFamily?: string
+    textAlign?: 'left' | 'right' | 'center' | 'start' | 'end'
     textX?: number
     textY?: number
+    maxWidth?: number
 }
 
 export async function synthesizeImage(options: ImageSynthesisOptions) {
@@ -19,8 +22,8 @@ export async function synthesizeImage(options: ImageSynthesisOptions) {
         outputPath,
         fontSize = 60,
         fontColor = '#ffffff',
-        textX = 50,
-        textY = 100,
+        textX = 0,
+        textY = 0,
     } = options
 
     try {
@@ -38,12 +41,25 @@ export async function synthesizeImage(options: ImageSynthesisOptions) {
         ctx.drawImage(img, 0, 0)
 
         // 设置文字样式
-        ctx.font = `${fontSize}px sans-serif`
+        ctx.font = `${fontSize}px ${options.fontFamily || 'sans-serif'}`
         ctx.fillStyle = fontColor
         ctx.textBaseline = 'top'
+        ctx.textAlign = options.textAlign || 'left'
+
+        // 计算文字位置
+        let finalX = textX
+        if (options.textAlign === 'center') {
+            finalX = (metadata.width || 800) / 2
+        } else if (options.textAlign === 'right') {
+            finalX = (metadata.width || 800) - textX
+        }
 
         // 绘制文字
-        ctx.fillText(text, textX, textY)
+        if (options.maxWidth) {
+            ctx.fillText(text, finalX, textY, options.maxWidth)
+        } else {
+            ctx.fillText(text, finalX, textY)
+        }
 
         // 保存合成后的图片
         const outputBuffer = canvas.toBuffer('image/png')
