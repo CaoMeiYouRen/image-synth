@@ -25,7 +25,7 @@ export async function synthesizeImage(options: ImageSynthesisOptions) {
 
     try {
         // 加载背景图片并获取尺寸
-        const background = await sharp(backgroundImagePath)
+        const background = sharp(backgroundImagePath)
         const metadata = await background.metadata()
         const bgBuffer = await background.toBuffer()
 
@@ -52,7 +52,9 @@ export async function synthesizeImage(options: ImageSynthesisOptions) {
         console.log(`图片已成功保存到：${outputPath}`)
     } catch (error) {
         console.error('图片合成失败：', error)
+        if (error instanceof Error && error.message.includes('writeFileSync')) {
+            throw new Error('Write file failed')
+        }
         throw error
     }
 }
-
