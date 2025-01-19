@@ -43,9 +43,47 @@ npm install image-synth
 
 ## 👨‍💻 使用
 
+首先安装依赖：
+
 ```sh
-npm run start
+npm install image-synth
 ```
+
+然后在代码中使用：
+
+```typescript
+import path from 'path'
+import { synthesizeImage } from 'image-synth'
+
+// 合成图片
+const image = await synthesizeImage({
+    backgroundImagePath: path.resolve(__dirname, './background.png'), // 背景图片路径
+    text: 'Hello World', // 要绘制的文字
+    outputPath: path.resolve(__dirname, './output.png'), // 输出图片路径
+    fontSize: 80, // 字体大小
+    textAlign: 'center', // 文字对齐方式
+    textY: 200, // 文字Y轴位置
+    fontColor: '#ffffff', // 文字颜色
+    fontFamily: 'sans-serif' // 字体
+})
+
+console.log('图片合成成功！')
+```
+
+### 参数说明
+
+| 参数 | 类型 | 说明 |
+|------|------|------|
+| backgroundImagePath | string | 背景图片路径 |
+| text | string | 要绘制的文字 |
+| outputPath | string | 输出图片路径（可选） |
+| fontSize | number | 字体大小（默认60） |
+| fontColor | string | 文字颜色（默认#ffffff） |
+| fontFamily | string | 字体（默认sans-serif） |
+| textAlign | 'left'\|'right'\|'center'\|'start'\|'end' | 文字对齐方式（默认left） |
+| textX | number | 文字X轴位置（默认0） |
+| textY | number | 文字Y轴位置（默认0） |
+| maxWidth | number | 文字最大宽度（可选） |
 
 ## 🛠️ 开发
 

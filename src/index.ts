@@ -26,53 +26,44 @@ export async function synthesizeImage(options: ImageSynthesisOptions) {
         textY = 0,
     } = options
 
-    try {
-        // 加载背景图片并获取尺寸
-        const background = sharp(backgroundImagePath)
-        const metadata = await background.metadata()
-        const bgBuffer = await background.toBuffer()
+    // 加载背景图片并获取尺寸
+    const background = sharp(backgroundImagePath)
+    const metadata = await background.metadata()
+    const bgBuffer = await background.toBuffer()
 
-        // 创建canvas
-        const canvas = createCanvas(metadata.width || 800, metadata.height || 600)
-        const ctx = canvas.getContext('2d')
+    // 创建canvas
+    const canvas = createCanvas(metadata.width || 800, metadata.height || 600)
+    const ctx = canvas.getContext('2d')
 
-        // 绘制背景图片
-        const img = await loadImage(bgBuffer)
-        ctx.drawImage(img, 0, 0)
+    // 绘制背景图片
+    const img = await loadImage(bgBuffer)
+    ctx.drawImage(img, 0, 0)
 
-        // 设置文字样式
-        ctx.font = `${fontSize}px ${options.fontFamily || 'sans-serif'}`
-        ctx.fillStyle = fontColor
-        ctx.textBaseline = 'top'
-        ctx.textAlign = options.textAlign || 'left'
+    // 设置文字样式
+    ctx.font = `${fontSize}px ${options.fontFamily || 'sans-serif'}`
+    ctx.fillStyle = fontColor
+    ctx.textBaseline = 'top'
+    ctx.textAlign = options.textAlign || 'left'
 
-        // 计算文字位置
-        let finalX = textX
-        if (options.textAlign === 'center') {
-            finalX = (metadata.width || 800) / 2
-        } else if (options.textAlign === 'right') {
-            finalX = (metadata.width || 800) - textX
-        }
-
-        // 绘制文字
-        if (options.maxWidth) {
-            ctx.fillText(text, finalX, textY, options.maxWidth)
-        } else {
-            ctx.fillText(text, finalX, textY)
-        }
-
-        // 保存合成后的图片
-        const outputBuffer = canvas.toBuffer('image/png')
-        if (outputPath) {
-            await writeFile(outputPath, outputBuffer)
-        }
-        console.log(`图片已成功保存到：${outputPath}`)
-        return outputBuffer
-    } catch (error) {
-        console.error('图片合成失败：', error)
-        if (error instanceof Error && error.message.includes('writeFileSync')) {
-            throw new Error('Write file failed')
-        }
-        throw error
+    // 计算文字位置
+    let finalX = textX
+    if (options.textAlign === 'center') {
+        finalX = (metadata.width || 800) / 2
+    } else if (options.textAlign === 'right') {
+        finalX = (metadata.width || 800) - textX
     }
+
+    // 绘制文字
+    if (options.maxWidth) {
+        ctx.fillText(text, finalX, textY, options.maxWidth)
+    } else {
+        ctx.fillText(text, finalX, textY)
+    }
+
+    // 保存合成后的图片
+    const outputBuffer = canvas.toBuffer('image/png')
+    if (outputPath) {
+        await writeFile(outputPath, outputBuffer)
+    }
+    return outputBuffer
 }
