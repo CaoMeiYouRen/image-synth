@@ -32,9 +32,10 @@ jobs:
           cache: "pnpm"
       - run: pnpm i --frozen-lockfile
       - run: pnpm run lint
+      - run: pnpm run test
       - run: pnpm run build
-      # - env:
-      #     # GH_TOKEN: ${{ secrets.GH_TOKEN }}
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     # NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      #   run: pnpm run release
+      - env:
+          # GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm run release
