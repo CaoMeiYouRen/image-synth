@@ -1,7 +1,6 @@
-import { writeFileSync } from 'fs'
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { existsSync } from 'fs'
+import { describe, it, expect } from 'vitest'
 import sharp from 'sharp'
-import { createCanvas } from 'canvas'
 import { synthesizeImage } from '../src/index'
 
 describe('synthesizeImage', () => {
@@ -25,5 +24,7 @@ describe('synthesizeImage', () => {
         const image = sharp(result)
         const metadata = await image.metadata()
         expect(metadata.format).toBe('png')
+        // 验证文件是否存在
+        expect(existsSync(outputPath)).toBe(true)
     })
 })
