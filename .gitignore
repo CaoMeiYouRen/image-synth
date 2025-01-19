@@ -22,7 +22,7 @@ yarn-error.log*
 
 # 忽略图片
 *.jpg
-*.png
+# *.png
 *.rar
 
 .git
@@ -35,3 +35,4 @@ sessions
 #public
 dist
 temp
+example/output

@@ -1,11 +1,11 @@
-import { writeFileSync } from 'fs'
+import { writeFile } from 'fs/promises'
 import sharp from 'sharp'
 import { createCanvas, loadImage } from 'canvas'
 
 interface ImageSynthesisOptions {
     backgroundImagePath: string
     text: string
-    outputPath: string
+    outputPath?: string
     fontSize?: number
     fontColor?: string
     textX?: number
@@ -47,9 +47,11 @@ export async function synthesizeImage(options: ImageSynthesisOptions) {
 
         // 保存合成后的图片
         const outputBuffer = canvas.toBuffer('image/png')
-        writeFileSync(outputPath, outputBuffer)
-
+        if (outputPath) {
+            await writeFile(outputPath, outputBuffer)
+        }
         console.log(`图片已成功保存到：${outputPath}`)
+        return outputBuffer
     } catch (error) {
         console.error('图片合成失败：', error)
         if (error instanceof Error && error.message.includes('writeFileSync')) {
