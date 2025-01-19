@@ -7,4 +7,7 @@ const image = await synthesizeImage({
     backgroundImagePath: path.resolve(__dirname, './images/background.png'),
     text: 'Hello World',
     outputPath: path.resolve(__dirname, './output/output.png'),
+    fontSize: 80,
+    textX: (900 - 80 * 5) / 2,
+    textY: (545 - 80 - 60) / 2,
 })
