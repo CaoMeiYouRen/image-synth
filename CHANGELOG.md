@@ -1,5 +1,18 @@
 # image-synth
 
+# [1.1.0](https://github.com/CaoMeiYouRen/image-synth/compare/v1.0.0...v1.1.0) (2025-01-26)
+
+
+### ✨ 新功能
+
+* 添加字体路径支持，允许自定义字体注册 ([63638da](https://github.com/CaoMeiYouRen/image-synth/commit/63638da))
+
+
+### 🐛 Bug 修复
+
+* 增强图像合成功能，支持多种字体样式和中文文本 ([ad5ff2f](https://github.com/CaoMeiYouRen/image-synth/commit/ad5ff2f))
+* 更新字体样式为阿里巴巴普惠体以支持中文文本 ([02a01af](https://github.com/CaoMeiYouRen/image-synth/commit/02a01af))
+
 # 1.0.0 (2025-01-19)
 
 
