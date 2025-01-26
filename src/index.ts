@@ -9,6 +9,8 @@ interface ImageSynthesisOptions {
     fontSize?: number
     fontColor?: string
     fontFamily?: string
+    fontStyle?: string
+    fontWeight?: string
     textAlign?: 'left' | 'right' | 'center' | 'start' | 'end'
     textX?: number
     textY?: number
@@ -22,6 +24,10 @@ export async function synthesizeImage(options: ImageSynthesisOptions) {
         outputPath,
         fontSize = 60,
         fontColor = '#ffffff',
+        fontFamily = 'sans-serif',
+        fontStyle = 'normal',
+        fontWeight = 'normal',
+        textAlign = 'left',
         textX = 0,
         textY = 0,
     } = options
@@ -40,10 +46,10 @@ export async function synthesizeImage(options: ImageSynthesisOptions) {
     ctx.drawImage(img, 0, 0)
 
     // 设置文字样式
-    ctx.font = `${fontSize}px ${options.fontFamily || 'sans-serif'}`
+    ctx.font = `${fontStyle} ${fontWeight} ${fontSize}px ${fontFamily}`
     ctx.fillStyle = fontColor
     ctx.textBaseline = 'top'
-    ctx.textAlign = options.textAlign || 'left'
+    ctx.textAlign = textAlign
 
     // 计算文字位置
     let finalX = textX
