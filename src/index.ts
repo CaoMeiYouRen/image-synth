@@ -1,6 +1,6 @@
 import { writeFile } from 'fs/promises'
 import sharp from 'sharp'
-import { createCanvas, loadImage } from 'canvas'
+import { createCanvas, loadImage, registerFont } from 'canvas'
 
 interface ImageSynthesisOptions {
     backgroundImagePath: string
@@ -9,6 +9,7 @@ interface ImageSynthesisOptions {
     fontSize?: number
     fontColor?: string
     fontFamily?: string
+    fontPath?: string
     fontStyle?: string
     fontWeight?: string
     textAlign?: 'left' | 'right' | 'center' | 'start' | 'end'
@@ -27,6 +28,7 @@ export async function synthesizeImage(options: ImageSynthesisOptions) {
         fontFamily = 'sans-serif',
         fontStyle = 'normal',
         fontWeight = 'normal',
+        fontPath,
         textAlign = 'left',
         textX = 0,
         textY = 0,
@@ -46,7 +48,17 @@ export async function synthesizeImage(options: ImageSynthesisOptions) {
     ctx.drawImage(img, 0, 0)
 
     // 设置文字样式
-    ctx.font = `${fontStyle} ${fontWeight} ${fontSize}px ${fontFamily}`
+    // 注册字体
+    if (fontPath) {
+        registerFont(fontPath, {
+            family: fontFamily,
+            weight: fontWeight,
+            style: fontStyle,
+        })
+    }
+
+    // 设置字体样式
+    ctx.font = `${fontStyle} ${fontWeight} ${fontSize}px '${fontFamily}'`
     ctx.fillStyle = fontColor
     ctx.textBaseline = 'top'
     ctx.textAlign = textAlign
