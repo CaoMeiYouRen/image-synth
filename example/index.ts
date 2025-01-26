@@ -8,7 +8,7 @@ const image = await synthesizeImage({
     text: 'Hello World\n你好，世界',
     outputPath: path.resolve(__dirname, './output/output.png'),
     fontSize: 120,
-    fontFamily: 'sans-serif',
+    fontFamily: '阿里巴巴普惠体',
     fontWeight: 'normal',
     fontColor: '#ffffff',
     fontStyle: 'normal',
