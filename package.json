@@ -99,7 +99,12 @@
   "pnpm": {
     "overrides": {
       "compare-func": "^2.0.0"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "canvas",
+      "esbuild",
+      "sharp"
+    ]
   },
   "publishConfig": {
     "access": "public"
