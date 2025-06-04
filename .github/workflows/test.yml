@@ -19,10 +19,10 @@ jobs:
         with:
           node-version: "lts/*"
           cache: "pnpm"
-      - name: Setup Python 3.13 environment # 用于构建 node-gyp 依赖
+      - name: Setup Python 3 environment # 用于构建 node-gyp 依赖
         uses: actions/setup-python@v5
         with:
-          python-version: "3.13"
+          python-version: "3.12.3"
       - run: pnpm i --frozen-lockfile
       - run: pnpm run lint
       - run: pnpm run test
