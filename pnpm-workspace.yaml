@@ -1,0 +1,15 @@
+allowBuilds:
+  canvas: set this to true or false
+  esbuild: set this to true or false
+  sharp: set this to true or false
+
+onlyBuiltDependencies:
+  - canvas
+  - esbuild
+  - sharp
+
+overrides:
+  handlebars: "^4.7.9"
+  form-data: "^4.0.4"
+  flatted: "^3.4.2"
+  rollup: "^4.59.0"
