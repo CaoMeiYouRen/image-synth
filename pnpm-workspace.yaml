@@ -1,7 +1,7 @@
 allowBuilds:
-  canvas: set this to true or false
-  esbuild: set this to true or false
-  sharp: set this to true or false
+  canvas: true
+  esbuild: true
+  sharp: true
 
 onlyBuiltDependencies:
   - canvas
@@ -9,7 +9,11 @@ onlyBuiltDependencies:
   - sharp
 
 overrides:
-  handlebars: "^4.7.9"
-  form-data: "^4.0.4"
+  compare-func: "^2.0.0"
   flatted: "^3.4.2"
+  form-data: "^4.0.4"
+  handlebars: "^4.7.9"
+  katex: "^0.16.21"
+  lodash: "^4.17.24"
+  lodash-es: "^4.17.24"
   rollup: "^4.59.0"
