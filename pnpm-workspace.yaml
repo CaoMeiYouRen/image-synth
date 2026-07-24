@@ -9,10 +9,15 @@ onlyBuiltDependencies:
   - sharp
 
 overrides:
+  brace-expansion@^1: ^1.1.16
+  brace-expansion@^2: ^2.0.3
+  brace-expansion@^5: ^5.0.7
   compare-func: "^2.0.0"
+  esbuild: ^0.28.1
   flatted: "^3.4.2"
-  form-data: "^4.0.4"
+  form-data: "^4.0.6"
   handlebars: "^4.7.9"
+  js-yaml: ^4.3.0
   katex: "^0.16.21"
   lodash: "^4.17.24"
   lodash-es: "^4.17.24"
